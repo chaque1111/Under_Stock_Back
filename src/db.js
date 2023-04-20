@@ -10,8 +10,8 @@ const sequelize =
         `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/${DB_NAME}`,
         {logging: false, native: false}
       )
-    : new Sequelize(`Under_Stock, ${DB_USER}, ${DB_PASSWORD}`, {
-        host: "sublimacionesdb.ccigqsmdszrz.us-east-1.rds.amazonaws.com",
+    : new Sequelize(DB_NAME, DB_USER, DB_PASSWORD, {
+        host: DB_HOST,
         port: 5432,
         logging: false,
         maxConcurrentQueries: 100,
