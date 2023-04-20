@@ -32,6 +32,29 @@ const getAllProducts = async (req, res) => {
   }
 };
 
+const getProductById = async (req, res) => {
+  try {
+    const {id} = req.params;
+    const t_shirts = await T_shirt.findAll({
+      attributes: ["name", "price", "color", "image", "size", "id"],
+    });
+    const divers = await Diver.findAll({
+      attributes: ["name", "price", "color", "image", "size", "id"],
+    });
+    const pants = await Pant.findAll({
+      attributes: ["name", "price", "color", "image", "size", "id"],
+    });
+    const sneakers = await Sneaker.findAll({
+      attributes: ["name", "price", "color", "image", "size", "id"],
+    });
+    const allProducts = [...t_shirts, ...divers, ...pants, ...sneakers];
+    const productById = allProducts.filter((e) => e.id === id);
+    res.status(200).send(productById[0]);
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
+
 const getAllFilters = async (req, res) => {
   try {
     const t_shirts = await T_shirt.findAll({attributes: ["color"]});
@@ -114,4 +137,5 @@ module.exports = {
   searchProductsByName,
   getAllFilters,
   filterProducts,
+  getProductById,
 };
