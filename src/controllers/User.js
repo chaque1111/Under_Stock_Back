@@ -22,6 +22,17 @@ const findOrCreateUser = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  try {
+    const {id} = req.params;
+    await User.destroy({where: {id: id}});
+    res.status(200).send("Cuenta eliminada correctamente!");
+  } catch (error) {
+    res.status(300).send(error);
+  }
+};
+
 module.exports = {
   findOrCreateUser,
+  deleteUser,
 };
