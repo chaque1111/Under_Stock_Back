@@ -5,10 +5,12 @@ const {
   getAllFilters,
   filterProducts,
   getProductById,
+  getAllColors,
 } = require("../controllers/Products");
 const router = express();
 
 router.get("/", getAllProducts);
+router.get("/colors", getAllColors);
 router.get("/filters", getAllFilters);
 router.get("/detail/:id", getProductById);
 router.get("/search/:name", searchProductsByName);

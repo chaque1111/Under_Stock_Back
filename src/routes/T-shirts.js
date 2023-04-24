@@ -7,11 +7,13 @@ const {
   getShirtById,
   getAllFilters,
   filterProducts,
+  validate,
 } = require("../controllers/T_shirts");
 
 router.get("/", getAll_T_shirts);
 router.get("/filters", getAllFilters);
 router.get("/detail/:id", getShirtById);
+router.get("/validate/:name", validate);
 router.get("/search/:name", findShirtByName);
 router.put("/filter", filterProducts);
 router.post("/create", createT_shirt);

@@ -55,6 +55,36 @@ const getProductById = async (req, res) => {
   }
 };
 
+const getAllColors = async (req, res) => {
+  try {
+    const t_shirts = await T_shirt.findAll({
+      attributes: ["color"],
+    });
+    const divers = await Diver.findAll({
+      attributes: ["color"],
+    });
+    const pants = await Pant.findAll({
+      attributes: ["color"],
+    });
+    const sneakers = await Sneaker.findAll({
+      attributes: ["color"],
+    });
+    const allProducts = [...t_shirts, ...divers, ...pants, ...sneakers];
+    const colors = [];
+    allProducts.map((e) =>
+      e.color.filter((e) => {
+        if (!colors.includes(e)) {
+          colors.push(e);
+        }
+      })
+    );
+
+    res.status(200).send(colors);
+  } catch (e) {
+    res.status(400).send(e);
+  }
+};
+
 const getAllFilters = async (req, res) => {
   try {
     const t_shirts = await T_shirt.findAll({attributes: ["color"]});
@@ -138,4 +168,5 @@ module.exports = {
   getAllFilters,
   filterProducts,
   getProductById,
+  getAllColors,
 };

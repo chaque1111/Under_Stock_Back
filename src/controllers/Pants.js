@@ -112,6 +112,20 @@ const filterProducts = async (req, res) => {
     res.status(400).send(error);
   }
 };
+const validate = async (req, res) => {
+  try {
+    const name = req.params.name;
+    const productos = await Pant.findAll({attributes: ["name"]});
+    const existe = productos.filter(
+      (e) => e.name.toUpperCase() === name.toUpperCase()
+    );
+    !existe.length
+      ? res.status(200).send("El nombre está disponible")
+      : res.status(201).send("El nombre no está disponible intenta con otro");
+  } catch (error) {
+    res.status(400).send(error);
+  }
+};
 const getPantById = async (req, res) => {
   try {
     const id = req.params.id;
@@ -130,4 +144,5 @@ module.exports = {
   getPantById,
   filterProducts,
   getAllFilters,
+  validate,
 };
